@@ -52,11 +52,11 @@ This expression generates all 4 characters password candidates consist of upper 
 
 If you created LUKS volumes /dev/sda1 with password "Password16", but you forget first 1 character and last 2 numbers.
 ```console
-Passsearcher /dev/sda1 [A-Z]assword[1-9][0-9]
+Passsearcher-luks /dev/sda1 [A-Z]assword[1-9][0-9]
 ```
 
 ## Requirement
-CUDA runtime
+* CUDA runtime
 
 ## Requirement to build
 * g++
