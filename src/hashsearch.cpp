@@ -246,7 +246,8 @@ int main(int argc, char** argv)
 			}
 		}
 
-		cout << "progress: " << (i+1) << '/' << numLoop << endl;
+		const float progRate = float(i+1)/numLoop;
+		cout << "progress: " << (i+1) << '/' << numLoop << "(" << progRate << "%)" << ", passGenCount=" << passGenCount << endl;
 	}
 	const auto afterLoopTime = chrono::system_clock::now();
 	const float time = chrono::duration_cast<chrono::duration<float>>(afterLoopTime - beforeLoopTime).count();
