@@ -66,6 +66,7 @@ Passsearcher-luks /dev/sda1 [A-Z]assword[1-9][0-9]
 * sudo apt-get install libgcrypt20-dev
 * sudo apt-get install libdevmapper-dev
 * sudo apt-get install uuid-dev
+* sudo apt-get install libboost-program-options-dev
 
 ## How to build
 ```console

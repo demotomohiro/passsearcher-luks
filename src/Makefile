@@ -65,7 +65,7 @@ PROGNAME_CFILES := libcrypt.c libcryptsetup/keyencryption.c \
 	libcryptsetup/volumekey.c libcryptsetup/utils_crypt.c \
 	libcryptsetup/utils_loop.c libcryptsetup/crypto_cipher_kernel.c \
 	libcryptsetup/crypto_gcrypt.c
-PROGNAME_CCFILES := hashsearch.cpp passGen.cpp $(COMMON_CCFILES)
+PROGNAME_CCFILES := hashsearch.cpp passGen.cpp progOptions.cpp $(COMMON_CCFILES)
 PROGNAME_CUFILES := $(COMMON_CUFILES)
 PROGNAME_OBJS := $(PROGNAME_CFILES:%.c=$(TMPDIR)/%.o)
 PROGNAME_OBJS += $(PROGNAME_CCFILES:%.cpp=$(TMPDIR)/%.o)
@@ -80,7 +80,7 @@ $(TESTPROG) : $(TESTPROG_OBJS)
 	$(NVCC) -o $@ $^ `libgcrypt-config --libs`
 
 $(PROGNAME) : $(PROGNAME_OBJS)
-	$(NVCC) --linker-options --gc-sections,$(LDFLAGS) -o $@ $^ `libgcrypt-config --libs` -ldevmapper -luuid
+	$(NVCC) --linker-options --gc-sections,$(LDFLAGS) -o $@ $^ `libgcrypt-config --libs` -ldevmapper -luuid -lboost_program_options
 
 $(TMPDIR)/%.o : %.c
 	@if [ ! -e `dirname $@` ]; then mkdir -p `dirname $@`; fi

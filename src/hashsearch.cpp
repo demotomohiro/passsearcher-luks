@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "passGen.hpp"
+#include "progOptions.hpp"
 #include "util.hpp"
 #include "hmacSha1Cuda.hpp"
 extern "C"
@@ -132,20 +133,26 @@ bool readHeader(const char* filename, luks_phdr& hdr, bool isPrintSaltAndDigest 
 
 int main(int argc, char** argv)
 {
-	if(argc < 2)
+	const progOptions options(argc, argv);
+
+	if(options.device.empty())
+	{
 		return 1;
+	}
 
 	luks_phdr hdr;
-	const char* filename = argv[1];
+	const char* filename = options.device.c_str();
 	if(!readHeader(filename, hdr))
 	{
 		return 1;
 	}
 
-	if(argc < 3)
+	if(options.expression.empty())
+	{
 		return 0;
+	}
 
-	const passGen pg(argv[2]);
+	const passGen pg(options.expression.c_str());
 	if(pg.getHasError())
 	{
 		cerr << "Password generating expression error\n";
