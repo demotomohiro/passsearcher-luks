@@ -203,9 +203,10 @@ int main(int argc, char** argv)
 
 	cout << "begin loop\n";
 	const size_t numLoop = roundUpDiv(numCandidates, batchSize);
-	passGenInt passGenCount = 0;
+	const size_t loopCountOffset	= options.passGenCountOffset / batchSize;
+	passGenInt passGenCount			= loopCountOffset * batchSize;
 	auto beforeLoopTime = chrono::system_clock::now();
-	for(size_t i=0; i<numLoop; ++i)
+	for(size_t i=loopCountOffset; i<numLoop; ++i)
 	{
 		for(size_t j=0; j<batchSize; ++j)
 		{

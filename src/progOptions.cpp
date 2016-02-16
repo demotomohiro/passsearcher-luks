@@ -23,15 +23,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace boost;
 using namespace std;
 
-progOptions::progOptions(int argc, char** argv)
+progOptions::progOptions(int argc, char** argv):
+	passGenCountOffset(0)
 {
 	try
 	{
 		program_options::options_description desc("Allowed options");
 		desc.add_options()
-			("help",		"produce help message")
-			("device",		program_options::value<string>(),	"LUKS device")
-			("expression",	program_options::value<string>(),	"password generating expression")
+			("help",				"produce help message")
+			("device",				program_options::value<string>(),		"LUKS device")
+			("expression",			program_options::value<string>(),		"password generating expression")
+			("passGenCountOffset",	program_options::value<unsigned int>(),	"passGenCount offset")
 		;
 
 		program_options::positional_options_description	p;
@@ -65,6 +67,11 @@ progOptions::progOptions(int argc, char** argv)
 		if(vm.count("expression"))
 		{
 			expression = vm["expression"].as<string>();
+		}
+
+		if(vm.count("passGenCountOffset"))
+		{
+			passGenCountOffset = vm["passGenCountOffset"].as<unsigned int>();
 		}
 	}catch(std::exception& e)
 	{

@@ -23,7 +23,8 @@ struct progOptions
 {
 	progOptions(int argc, char** argv);
 
-	std::string	device;
-	std::string	expression;
+	std::string		device;
+	std::string		expression;
+	unsigned int	passGenCountOffset;
 };
 
