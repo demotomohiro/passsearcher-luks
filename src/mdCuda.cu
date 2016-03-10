@@ -442,8 +442,10 @@ void pbkdf2
 	thrust::host_vector<derivedKey>&			output
 )
 {
-	thrust::device_vector<sha1InputBlock>	deviceKey(key);
-	thrust::device_vector<derivedKey>		deviceOut(key.size());
+	static thread_local thrust::device_vector<sha1InputBlock>	deviceKey;
+	deviceKey = key;
+	static thread_local thrust::device_vector<derivedKey>		deviceOut;
+	deviceOut.resize(key.size());
 	thrust::transform
 	(
 		deviceKey.begin(), deviceKey.end(), deviceOut.begin(), pbkdf2Op(numIteration, input)
